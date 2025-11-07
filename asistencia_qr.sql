@@ -62,7 +62,7 @@ CREATE TABLE `asistencias` (
 --
 
 INSERT INTO `asistencias` (`id_asistencia`, `id_sesion`, `id_alumno`, `fecha_hora_escaneo`, `ubicacion`, `estado`) VALUES
-(7, 16, 1, '2025-11-03 22:18:54', 'Calle La Carbonera, El Haya, Xico, Veracruz, 91240, México', 'Presente'),
+(7, 16, 1, '2025-11-03 22:18:54', 'No disponible', 'Presente'),
 (9, 20, 10, '2025-11-04 00:11:03', 'No disponible', 'Presente'),
 (11, 20, 1, '2025-11-04 00:22:03', 'No disponible', 'Tarde'),
 (12, 21, 1, '2025-11-06 19:23:03', 'No disponible', 'Presente'),
@@ -153,11 +153,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `contrasena`, `rol`) VALUES
-(1, 'Carlos Daniel Garcia Jimenez', 'tec227o02020@qr.com', 'alum123', 'Alumno'),
-(2, 'Juan Tellez', 'tecprofesorlya2@qr.com', 'prof123', 'Profesor'),
-(3, 'Administrador-Carlos', 'tec227o02014@qr.com', 'admin123', 'Administrador'),
+(1, 'Carlos', 'tec227o02020@qr.com', 'alum123', 'Alumno'),
+(2, 'Juan', 'tecprofesorlya2@qr.com', 'prof123', 'Profesor'),
+(3, 'Administrador-Carlos', 'tec227o09238@qr.com', 'admin123', 'Administrador'),
 (6, 'Dan', 'profesor2@qr.com', 'prof123', 'Profesor'),
-(10, 'Carlos  ', 'alumno2@qr.com', 'alum123', 'Alumno');
+(10, 'Carlos Casillas', 'alumno2@qr.com', 'alum123', 'Alumno');
 
 --
 -- Índices para tablas volcadas
