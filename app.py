@@ -19,18 +19,12 @@ app.secret_key = "064238"  # Necesaria para manejar sesiones
 
 # Conexión a MySQL
 
-DB_HOST = os.environ.get('DB_HOST', 'localhost')
-DB_USER = os.environ.get('DB_USER', 'root')
-DB_PASS = os.environ.get('DB_PASS', '')
-DB_NAME = os.environ.get('DB_NAME', 'asistencia_qr')
-DB_PORT = int(os.environ.get('DB_PORT', 3306))
-
 conexion = mysql.connector.connect(
-    host=DB_HOST,
-    user=DB_USER,
-    password=DB_PASS,
-    database=DB_NAME,
-    port=DB_PORT
+    host=os.getenv("MYSQL_ADDON_HOST", "brodvmtpeyupqyrna1i4-mysql.services.clever-cloud.com"),
+    user=os.getenv("MYSQL_ADDON_USER", "uarx8erpufuunofj"),
+    password=os.getenv("MYSQL_ADDON_PASSWORD", "5XELE8YVOLPuFjhiI7Xi"),
+    database=os.getenv("MYSQL_ADDON_DB", "brodvmtpeyupqyrna1i4"),
+    port=int(os.getenv("MYSQL_ADDON_PORT", 3306))
 )
 
 
