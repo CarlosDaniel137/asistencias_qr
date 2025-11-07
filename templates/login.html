@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon2.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <style>
+        body {
+            background-color: #002842;
+            color: #dec74e;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            padding: 0px;
+        }
+
+            header img {
+            height: 100px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: white;
+            color: #002842;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 0px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 300px;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            height: 15%;
+            padding: 0px, 0px,0px;
+            margin-top: 0px;
+            margin-bottom: 30px;
+            border: 2px solid #002842;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #002842;
+            color: #dec74e;
+            border: none;
+            padding: 10px;
+            width: 103%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 50px;
+        }
+
+        button:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+
+        p {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #00000077;
+            color: #dec74e;
+            text-align: center;
+            padding: 10px 0;
+            border-top: 2px solid #dec74e;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Logo del sistema">
+</header>
+
+    <h2>Iniciar sesión</h2>
+
+    <form method="POST">
+        <label>Correo:</label><br>
+        <input type="email" name="correo" required><br>
+
+        <label>Contraseña:</label><br>
+        <input type="password" name="contrasena" required><br>
+
+        <button type="submit">Entrar</button>
+
+        {% if mensaje %}
+            <p style="color:red;">{{ mensaje }}</p>
+        {% endif %}
+    </form>
+
+
+
+</body>
+</html>
+

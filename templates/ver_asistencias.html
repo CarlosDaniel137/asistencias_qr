@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Reporte de asistencias por sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            color: #002842;
+            margin: 0;
+            padding: 0 0 80px 0; /* Espacio inferior */
+        }
+
+        h2 {
+            background-color: #002842;
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #dec74e;
+            color: #002842;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: #cbb640;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #002842;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover td {
+            background-color: #f0f0f0;
+        }
+
+        .Presente {
+            color: green;
+            font-weight: bold;
+        }
+
+        .Tarde {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .Ausente {
+            color: red;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #002842;
+            padding: 10px 25px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+    </style>
+</head>
+<body>
+    <h2>📋 Reporte de Asistencias por Sesión</h2>
+
+    <form method="POST">
+        <label>Selecciona un grupo:</label><br>
+        <select name="id_grupo" onchange="this.form.submit()" required>
+            <option value="">Seleccione un grupo</option>
+            {% for g in grupos %}
+                <option value="{{ g[0] }}" {% if request.form.get('id_grupo') == g[0]|string %}selected{% endif %}>
+                    {{ g[1] }} — {{ g[2] }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        {% if sesiones %}
+            <label>Selecciona una sesión:</label><br>
+            <select name="id_sesion" required>
+                <option value="">Seleccione una sesión</option>
+                {% for s in sesiones %}
+                    <option value="{{ s[0] }}" {% if request.form.get('id_sesion') == s[0]|string %}selected{% endif %}>
+                        {{ s[1] }}
+                    </option>
+                {% endfor %}
+            </select><br>
+            <button type="submit">Ver Asistencia</button>
+        {% endif %}
+    </form>
+
+    {% if asistencias %}
+        <h3>Lista de Asistencia</h3>
+        <table>
+            <tr>
+                <th>Alumno</th>
+                <th>Estado</th>
+                <th>Ubicación</th>
+            </tr>
+            {% for a in asistencias %}
+            <tr>
+                <td>{{ a[0] }}</td>
+                <td class="{{ a[1] }}">{{ a[1] }}</td>
+                <td>{{ a[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% elif request.form.get('id_sesion') %}
+        <p>No hay registros de asistencia para esta sesión.</p>
+    {% endif %}
+
+    <hr style="width: 80%; margin: 40px auto;">
+
+    <a href="/panel_profesor">⬅️ Volver al panel del profesor</a>
+</body>
+</html>

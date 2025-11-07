@@ -1,0 +1,22 @@
+<h2>Asignar alumnos al grupo {{ id_grupo }}</h2>
+<a href="/grupos">⬅️ Volver a grupos</a>
+
+<h3>Alumnos actuales:</h3>
+<ul>
+  {% for a in asignados %}
+    <li>{{ a[0] }}</li>
+  {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Agregar alumno</h3>
+<form method="POST" action="/asignar_alumnos">
+  <input type="hidden" name="id_grupo" value="{{ id_grupo }}">
+  <select name="id_alumno">
+    {% for a in alumnos %}
+      <option value="{{ a[0] }}">{{ a[1] }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">➕ Asignar</button>
+</form>

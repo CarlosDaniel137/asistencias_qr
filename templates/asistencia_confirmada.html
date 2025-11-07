@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Registro de asistencia</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; margin-top: 80px; background: #f9f9f9; }
+        .container { display: inline-block; padding: 25px 40px; border-radius: 15px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .ok { color: green; }
+        .late { color: orange; }
+        .advertencia { color: #b58900; }
+        .error { color: red; }
+        a { display: inline-block; margin-top: 20px; color: #007BFF; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if estado == 'Presente' %}
+            <h2 class="ok">{{ mensaje }}</h2>
+        {% elif estado == 'Tarde' %}
+            <h2 class="late">{{ mensaje }}</h2>
+        {% elif estado == 'advertencia' %}
+            <h2 class="advertencia">{{ mensaje }}</h2>
+        {% else %}
+            <h2 class="error">{{ mensaje }}</h2>
+        {% endif %}
+
+        <p><strong>Ubicación detectada:</strong></p>
+        <p>{{ ubicacion }}</p>
+
+        <a href="/panel_alumno">Volver al panel</a>
+    </div>
+</body>
+</html>
+

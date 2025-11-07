@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Registrar Asistencia</title>
+    <script>
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    document.getElementById('latitud').value = pos.coords.latitude;
+                    document.getElementById('longitud').value = pos.coords.longitude;
+                    document.getElementById('formAsistencia').submit();
+                }, function() {
+                    alert("No se pudo obtener tu ubicación. Se registrará como 'No disponible'.");
+                    document.getElementById('formAsistencia').submit();
+                });
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+                document.getElementById('formAsistencia').submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Registro de Asistencia</h2>
+    <p>Presiona el botón para registrar tu asistencia. Se tomará tu ubicación actual.</p>
+
+    <form id="formAsistencia" method="POST" action="/registrar_asistencia/{{ codigo }}">
+        <input type="hidden" name="latitud" id="latitud">
+        <input type="hidden" name="longitud" id="longitud">
+        <button type="button" onclick="obtenerUbicacion()">Registrar Asistencia</button>
+    </form>
+
+    <p><a href="/panel_alumno">Volver al panel</a></p>
+</body>
+</html>

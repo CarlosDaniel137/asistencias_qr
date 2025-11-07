@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Gestión de Materias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            color: #002842;
+            margin: 0;
+            padding: 0 0 80px 0; /* espacio inferior */
+        }
+
+        h2 {
+            background-color: #002842;
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        form, table {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button, a.button {
+            display: inline-block;
+            background-color: #dec74e;
+            color: #002842;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 8px;
+            width: 200px;
+        }
+
+        button:hover, a.button:hover {
+            background-color: #cbb640;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            background-color: #002842;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:hover td {
+            background-color: #f0f0f0;
+        }
+
+        .bottom-link {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #002842;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .bottom-link:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gestión de Materias</h2>
+
+    <form method="POST">
+        <label>Nombre de la materia:</label><br>
+        <input type="text" name="nombre" required><br><br>
+        <button type="submit">Agregar Materia</button>
+    </form>
+
+    <h3>Materias registradas</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+        {% for m in materias %}
+        <tr>
+            <td>{{ m[0] }}</td>
+            <td>{{ m[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/panel_admin" class="bottom-link">Volver al panel</a>
+</body>
+</html>

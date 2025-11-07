@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Gestión de Alumnos del Grupo</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      padding: 0 0 80px 0; /* espacio inferior */
+    }
+
+    h2 {
+      background-color: #002842;
+      color: #dec74e;
+      padding: 15px 0;
+      margin: 0 0 20px 0;
+    }
+
+    a {
+      color: #dec74e;
+      background-color: #002842;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    a:hover {
+      background-color: #dec74e;
+      color: #002842;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #002842;
+      color: #dec74e;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    button {
+      background-color: #002842;
+      color: #dec74e;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #dec74e;
+      color: #002842;
+    }
+
+    form {
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #002842;
+    }
+
+    input, select {
+      padding: 8px;
+      width: 250px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h2>Gestión de Alumnos del Grupo</h2>
+
+  <a href="/grupos">⬅️ Volver a Gestión de Grupos</a>
+
+  <h3>Información del Grupo</h3>
+  <p><b>Grupo:</b> {{ grupo[0] }}</p>
+  <p><b>Materia:</b> {{ grupo[1] }}</p>
+  <p><b>Profesor:</b> {{ grupo[2] }}</p>
+
+  <hr>
+
+  <h3>Agregar Alumno al Grupo</h3>
+  <form method="POST">
+    <select name="id_alumno" required>
+      {% for a in alumnos_disponibles %}
+      <option value="{{ a[0] }}">{{ a[1] }}</option>
+      {% endfor %}
+    </select><br>
+    <button type="submit">Agregar</button>
+  </form>
+
+  <hr>
+
+  <h3>Alumnos del Grupo</h3>
+  {% if alumnos_grupo %}
+  <table>
+    <tr>
+      <th>ID Alumno</th>
+      <th>Nombre</th>
+      <th>Acción</th>
+    </tr>
+    {% for a in alumnos_grupo %}
+    <tr>
+      <td>{{ a[0] }}</td>
+      <td>{{ a[1] }}</td>
+      <td>
+        <form method="POST" style="display:inline;">
+          <input type="hidden" name="eliminar_alumno" value="{{ a[0] }}">
+          <button type="submit">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>No hay alumnos en este grupo.</p>
+  {% endif %}
+
+</body>
+</html>

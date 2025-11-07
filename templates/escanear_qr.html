@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>📷 Escanear Código QR</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            color: #002842;
+            margin: 0;
+            padding: 0 0 80px 0; /* Espacio inferior */
+        }
+
+        h2 {
+            background-color: #002842;
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        p {
+            margin: 15px auto;
+            width: 80%;
+            max-width: 600px;
+            font-size: 16px;
+        }
+
+        #reader {
+            width: 320px;
+            margin: 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 15px;
+        }
+
+        #resultado {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #002842;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #002842;
+            padding: 10px 25px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 40px;
+        }
+
+        a:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+    </style>
+</head>
+<body>
+    <h2>📷 Escanear Código QR</h2>
+    <p>Apunta tu cámara hacia el código QR del profesor para registrar tu asistencia.</p>
+
+    <div id="reader"></div>
+    <div id="resultado"></div>
+
+    <script>
+        function onScanSuccess(decodedText) {
+            document.getElementById('resultado').innerHTML = "✅ Código detectado: " + decodedText;
+            setTimeout(() => window.location.href = decodedText, 1000);
+        }
+
+        function onScanError(errorMessage) {
+            console.warn("Error de escaneo:", errorMessage);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+    </script>
+
+    <a href="/panel_alumno">⬅️ Volver al panel del alumno</a>
+</body>
+</html>

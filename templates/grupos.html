@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Gestión de Grupos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            color: #002842;
+            margin: 0;
+            padding: 0 0 80px 0; /* espacio inferior */
+        }
+
+        h2 {
+            background-color: #002842;
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        form, table {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 90%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button, a.button {
+            display: inline-block;
+            background-color: #dec74e;
+            color: #002842;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 8px;
+            width: 200px;
+        }
+
+        button:hover, a.button:hover {
+            background-color: #cbb640;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th {
+            background-color: #002842;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:hover td {
+            background-color: #f0f0f0;
+        }
+
+        hr {
+            width: 80%;
+            border: 1px solid #ccc;
+        }
+
+        .bottom-link {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #002842;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .bottom-link:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gestión de Grupos</h2>
+
+    <!-- Crear grupo -->
+    <form method="POST">
+        <input type="hidden" name="crear_grupo" value="1">
+        <label>Nombre del grupo:</label><br>
+        <input type="text" name="nombre" required><br><br>
+
+        <label>Materia:</label><br>
+        <select name="id_materia" required>
+            {% for m in materias %}
+            <option value="{{ m[0] }}">{{ m[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Profesor:</label><br>
+        <select name="id_profesor" required>
+            {% for p in profesores %}
+            <option value="{{ p[0] }}">{{ p[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Crear Grupo</button>
+    </form>
+
+    <hr>
+
+    <!-- Listado de grupos -->
+    <h3>Grupos Registrados</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Grupo</th>
+            <th>Materia</th>
+            <th>Profesor</th>
+            <th>Acciones</th>
+        </tr>
+        {% for g in grupos %}
+        <tr>
+            <td>{{ g[0] }}</td>
+            <td>{{ g[1] }}</td>
+            <td>{{ g[2] }}</td>
+            <td>{{ g[3] }}</td>
+            <td>
+                <a href="/eliminar_grupo/{{ g[0] }}" class="button">🗑️ Eliminar</a>
+                <a href="/grupo/{{ g[0] }}/alumnos" class="button">👥 Gestionar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/panel_admin" class="bottom-link">Volver al panel</a>
+</body>
+</html>
+

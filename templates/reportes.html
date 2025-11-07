@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Reportes de Asistencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            color: #002842;
+            margin: 0;
+            padding: 0 0 80px 0; /* Espacio inferior */
+        }
+
+        h2 {
+            background-color: #002842;
+            color: white;
+            padding: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #dec74e;
+            color: #002842;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: #cbb640;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #002842;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover td {
+            background-color: #f0f0f0;
+        }
+
+        p strong {
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #002842;
+            padding: 10px 25px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #dec74e;
+            color: #002842;
+        }
+    </style>
+</head>
+<body>
+    <h2>📊 Reportes de Asistencia por Grupo</h2>
+
+    <form method="POST">
+        <label>Selecciona un grupo:</label><br>
+        <select name="id_grupo" required>
+            {% for grupo in grupos %}
+                <option value="{{ grupo[0] }}"
+                    {% if id_grupo == grupo[0]|string %}selected{% endif %}>
+                    {{ grupo[1] }} - {{ grupo[2] or 'Sin materia asignada' }}
+                </option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Ver Reporte</button>
+    </form>
+
+    {% if alumnos_reporte %}
+        <h3>Asistencia de alumnos</h3>
+        <table>
+            <tr>
+                <th>Alumno</th>
+                <th>% de Asistencia</th>
+            </tr>
+            {% for fila in alumnos_reporte %}
+            <tr>
+                <td>{{ fila[0] }}</td>
+                <td>{{ fila[1] }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <p><strong>Promedio general del grupo:</strong> {{ promedio_asistencia }}%</p>
+
+        <form method="POST" action="/exportar_excel" style="display:inline;">
+            <input type="hidden" name="id_grupo" value="{{ id_grupo }}">
+            <button type="submit">📄 Exportar a Excel</button>
+        </form>
+
+        <form method="POST" action="/exportar_pdf" style="display:inline;">
+            <input type="hidden" name="id_grupo" value="{{ id_grupo }}">
+            <button type="submit" >🧾 Exportar a PDF</button>
+        </form>
+    {% endif %}
+
+    <hr style="width: 80%; margin: 40px auto;">
+
+    {% if session['rol'] == 'Administrador' %}
+        <a href="{{ url_for('panel_admin') }}">Volver al panel administrador</a>
+    {% elif session['rol'] == 'Profesor' %}
+        <a href="{{ url_for('panel_profesor') }}">Volver al panel profesor</a>
+    {% else %}
+        <a href="/">Volver al inicio</a>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Panel del Administrador</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #002842;
+            color: #fff;
+            text-align: center;
+            padding-bottom: 80px; /* Espacio inferior */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color:#00000077;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid white;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        .logout {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .logout:hover {
+            background-color: #c0392b;
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 40px;
+        }
+
+        li {
+            margin: 15px 0;
+        }
+
+                p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+
+        a.menu-btn {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.15);
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 220px;           /* 🔹 mismo ancho para todos */
+            text-align: center;     /* 🔹 centra el texto */
+            margin: 8px auto;       /* 🔹 separación uniforme */
+        }
+
+        a.menu-btn:hover {
+            background-color: rgba(255,255,255,0.35);
+            transform: scale(1.05);
+        }
+footer {
+    background-color: #00000077;
+    color: #dec74e;
+    text-align: center;
+    font-size: 11px;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #dec74e;
+}
+    </style>
+</head>
+<body>
+<header>
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo del sistema">
+    <a class="logout" href="/logout">Cerrar sesión</a>
+</header>
+
+<main>
+    <div class="title" style="text-indent: 0px;">    Panel del Administrador</div>
+    <p>Bienvenido, {{ usuario }}</p>
+
+    <ul>
+        <li><a class="menu-btn" href="/usuarios" >👥 Gestionar usuarios</a></li>
+        <li><a class="menu-btn" href="/grupos">🏫 Gestionar grupos</a></li>
+        <li><a class="menu-btn" href="/materias">📘 Nueva materia</a></li>
+        <li><a class="menu-btn" href="/reportes">📊 Reporte de asistencia: por grupo</a></li>
+    </ul>
+</main>
+</body>
+<footer>
+    © 2025 Carlos Daniel Garcia Jimenez — Tecnológico Superior de Xalapa
+</footer>
+</html>
+
