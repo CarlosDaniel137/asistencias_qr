@@ -7,10 +7,13 @@ from flask import jsonify
 from datetime import timedelta
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
+from flask import send_file
+from datetime import datetime
 import pytz
 import mysql.connector
 import qrcode
-from datetime import datetime
+import io
+import qrcode
 import random
 import requests
 import string
@@ -40,6 +43,19 @@ def home():
     else:
         return redirect(url_for('login'))
 
+# -------------------------
+# Mantener QRs en el codigo
+# -------------------------
+
+@app.route('/ver_qr/<codigo>')
+def ver_qr(codigo):
+    qr_data = f"https://asistencias-qr-sig8.onrender.com/registrar_asistencia/{codigo}"
+    img = qrcode.make(qr_data)
+
+    buffer = io.BytesIO()
+    img.save(buffer, format="PNG")
+    buffer.seek(0)
+    return send_file(buffer, mimetype='image/png')
 # -------------------------
 # Registro de nuevos usuarios
 # -------------------------
