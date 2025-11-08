@@ -32,15 +32,22 @@ conexion = mysql.connector.connect(
     port=int(os.getenv("MYSQL_ADDON_PORT", 3306))
 )
 
-tz_mexico = pytz.timezone('America/Mexico_City')
-fecha_hora = datetime.now(tz_mexico)
+cursor = conexion.cursor()
+
+# Ajustar la zona horaria a México (sin permisos SUPER)
+try:
+    cursor.execute("SET time_zone = '-06:00';")
+    print("Zona horaria configurada a México (-06:00)")
+except mysql.connector.Error as err:
+    print("No se pudo establecer zona horaria:", err)
+
+# Verificar hora actual del servidor (solo para comprobar una vez)
+cursor.execute("SELECT NOW();")
+print("Hora actual del servidor:", cursor.fetchone()[0])
 
 # Ruta principal (inicio)
 @app.route('/')
 def home():
-    if 'usuario' in session:
-        return f"Bienvenido, {session['usuario']} ({session['rol']})"
-    else:
         return redirect(url_for('login'))
 # -------------------------
 # Registro de nuevos usuarios
