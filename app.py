@@ -46,9 +46,11 @@ cursor.execute("SELECT NOW();")
 print("Hora actual del servidor:", cursor.fetchone()[0])
 
 # Ruta principal (inicio)
+
 @app.route('/')
 def home():
-        return redirect(url_for('login.html'))
+    return redirect(url_for('login'))
+
 # -------------------------
 # Registro de nuevos usuarios
 # -------------------------
@@ -397,7 +399,7 @@ def sesiones():
 
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
-        qr_data = f"https://asistencias-qr-sig8.onrender.com/registrar_asistencia/{codigo}"
+        qr_data = f"https://asistencias-qr-h0ho.onrender.com/registrar_asistencia/{codigo}"
 # ----------------------------------------
         img = qrcode.make(qr_data)
 
