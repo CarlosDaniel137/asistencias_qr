@@ -384,7 +384,7 @@ def sesiones():
 
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
-        qr_data = f"http://{local_ip}:5000/registrar_asistencia/{codigo}"
+        qr_data = f"https://asistencias-qr-sig8.onrender.com/registrar_asistencia/{codigo}"
 # ----------------------------------------
         img = qrcode.make(qr_data)
 
