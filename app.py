@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 from flask import send_file
 from datetime import datetime
-import pytz
+import pytz 
 import mysql.connector
 import qrcode
 import io
