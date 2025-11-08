@@ -15,4 +15,5 @@ reportlab
 requests
 geopy
 python-dotenv
+pytz
 
