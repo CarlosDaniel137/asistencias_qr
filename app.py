@@ -6,6 +6,8 @@ from reportlab.pdfgen import canvas
 from flask import jsonify
 from datetime import timedelta
 from flask import Flask, render_template, request, redirect, url_for, session
+from datetime import datetime
+import pytz
 import mysql.connector
 import qrcode
 from datetime import datetime
@@ -27,6 +29,8 @@ conexion = mysql.connector.connect(
     port=int(os.getenv("MYSQL_ADDON_PORT", 3306))
 )
 
+tz_mexico = pytz.timezone('America/Mexico_City')
+fecha_hora = datetime.now(tz_mexico)
 
 # Ruta principal (inicio)
 @app.route('/')
