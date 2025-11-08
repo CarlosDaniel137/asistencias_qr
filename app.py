@@ -48,7 +48,7 @@ print("Hora actual del servidor:", cursor.fetchone()[0])
 # Ruta principal (inicio)
 @app.route('/')
 def home():
-        return redirect(url_for('login'))
+        return redirect(url_for('login.html'))
 # -------------------------
 # Registro de nuevos usuarios
 # -------------------------
